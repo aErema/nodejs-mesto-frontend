@@ -1,0 +1,22 @@
+require('dotenv').config();
+
+const { PORT, JWT_SECRET, DB_HOST, DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH,DEPLOY_REF} = process.env;
+console.log('123', `${DEPLOY_REF}`);
+
+module.exports = {
+  apps: [{
+    name: 'mesto-frontend',
+    script: "dist/app.js",
+  }],
+  deploy: {
+    production: {
+      user: DEPLOY_USER,
+      host: DEPLOY_HOST,
+      ref: DEPLOY_REF,
+      repo: 'git@github.com:aErema/nodejs-mesto-project.git',
+      path: DEPLOY_PATH,
+      'pre-deploy-local': `scp ./.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
+      'post-deploy': 'cd /nodejs-mesto-project && pwd && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production',
+    },
+  },
+}
