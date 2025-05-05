@@ -16,7 +16,7 @@ module.exports = {
       repo: 'git@github.com:aErema/nodejs-mesto-project.git',
       path: DEPLOY_PATH,
       'pre-deploy-local': `scp ./.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
-      'post-deploy': 'cd /nodejs-mesto-project && pwd && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production',
+      'post-deploy': 'pwd && cd /nodejs-mesto-project && pwd && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production',
     },
   },
 }
