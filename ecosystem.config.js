@@ -13,10 +13,10 @@ module.exports = {
       user: DEPLOY_USER,
       host: DEPLOY_HOST,
       ref: DEPLOY_REF,
-      repo: 'git@github.com:aErema/nodejs-mesto-project.git',
+      repo: 'git@github.com:aErema/nodejs-mesto-frontend.git',
       path: DEPLOY_PATH,
       'pre-deploy-local': `pwd && scp ./.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
-      'post-deploy': 'cd /home/gorskaya/nodejs-mesto-project && pwd && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production',
+      'post-deploy': 'npm i && npm run build && cp -r ./build/* /home/gorskaya/mesto-frontend',
     },
   },
 }
